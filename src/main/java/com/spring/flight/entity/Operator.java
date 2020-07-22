@@ -22,7 +22,7 @@ public class Operator {
     private String lastName;
     private String email;
     private String status;
-    @ManyToMany(fetch = FetchType.EAGER)
+    @ManyToMany
     @JoinTable(name = "operator_role", joinColumns = @JoinColumn(name = "operator_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Collection<Role> roles;
 
@@ -85,12 +85,6 @@ public class Operator {
         this.roles = roles;
     }
 
-    public Collection<RoleDto> getRolesDto () {
-        Collection<RoleDto> roleDto = new ArrayList<RoleDto>();
-        roles.forEach ( item -> roleDto.add ( new RoleDto ( item.getRoleID ( ) , item.getRoleName ( ) ) ) );
-        return roleDto;
-
-    }
 
     @Override
     public String toString () {
@@ -105,4 +99,29 @@ public class Operator {
                 '}';
     }
 
+    @Override
+    public boolean equals ( Object o ) {
+        if ( this == o ) return true;
+        if ( o == null || getClass ( ) != o.getClass ( ) ) return false;
+
+        Operator operator = (Operator) o;
+
+        if ( operatorID != operator.operatorID ) return false;
+        if ( !password.equals ( operator.password ) ) return false;
+        if ( !firstName.equals ( operator.firstName ) ) return false;
+        if ( !lastName.equals ( operator.lastName ) ) return false;
+        if ( !email.equals ( operator.email ) ) return false;
+        return status.equals ( operator.status );
+    }
+
+    @Override
+    public int hashCode () {
+        int result = (int) ( operatorID ^ ( operatorID >>> 32 ) );
+        result = 31 * result + password.hashCode ( );
+        result = 31 * result + firstName.hashCode ( );
+        result = 31 * result + lastName.hashCode ( );
+        result = 31 * result + email.hashCode ( );
+        result = 31 * result + status.hashCode ( );
+        return result;
+    }
 }

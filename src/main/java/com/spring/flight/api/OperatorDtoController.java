@@ -22,7 +22,7 @@ public class OperatorDtoController {
     @GetMapping(value = "/{id}")
     @ResponseStatus(HttpStatus.OK)
     public OperatorDto getPost ( @PathVariable Long id ) {
-        return operatorService.getOperator ( id );
+        return operatorService.getOperatorDto ( id );
     }
 
 }

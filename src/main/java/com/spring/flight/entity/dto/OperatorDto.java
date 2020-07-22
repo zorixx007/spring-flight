@@ -10,9 +10,8 @@ public class OperatorDto {
     private String lastName;
     private String email;
     private String status;
-    private Collection<RoleDto> roles;
-
-    public OperatorDto ( long operatorID , String firstName , String lastName , String email , String status , Collection<RoleDto> roles ) {
+    private Collection<String> roles;
+    public OperatorDto ( long operatorID , String firstName , String lastName , String email , String status , Collection<String> roles ) {
         this.operatorID = operatorID;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -61,11 +60,11 @@ public class OperatorDto {
         this.status = status;
     }
 
-    public Collection<RoleDto> getRoles () {
+        public Collection<String> getRoles () {
         return roles;
     }
 
-    public void setRoles ( Collection<RoleDto> roles ) {
+    public void setRoles ( Collection<String> roles ) {
         this.roles = roles;
     }
 }

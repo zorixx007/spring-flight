@@ -1,6 +1,7 @@
 package com.spring.flight.service;
 
 import com.spring.flight.entity.Operator;
+import com.spring.flight.entity.Role;
 import com.spring.flight.entity.dto.OperatorDto;
 import com.spring.flight.repository.IOperatorRepository;
 import com.spring.flight.repository.IRoleRepository;
@@ -8,6 +9,8 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.TreeSet;
+import java.util.stream.Collectors;
 
 @Service
 public class OperatorService {
@@ -25,10 +28,19 @@ public class OperatorService {
         return operatorRepository.findById ( id );
     }
 
-    public OperatorDto getOperator ( long id ) {
-        return findById ( id )
+    public Optional<Operator> getOperator ( long id ) {
+        return findById ( id );
+    }
+
+    public OperatorDto getOperatorDto ( long id ) {
+        return getOperator ( id )
                 .map ( item -> new OperatorDto ( item.getOperatorID ( ) , item.getFirstName ( ) ,
-                        item.getLastName ( ) , item.getEmail ( ) , item.getStatus ( ) , item.getRolesDto ( ) ) )
+                                item.getLastName ( ) , item.getEmail ( ) , item.getStatus ( ) ,
+                                item.getRoles ( ).stream ( ).map (
+                                        role -> role.getRoleName ())
+                                        .collect ( Collectors.toCollection ( TreeSet::new ) )
+                        )
+                )
                 .orElse ( null );
     }
 

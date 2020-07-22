@@ -13,8 +13,8 @@ public class Role {
     private long roleID;
     @Column(name="role_name")
     private String roleName;
-    @ManyToMany
-    @JoinTable(name="operator_role", joinColumns=@JoinColumn(name="role_id"), inverseJoinColumns=@JoinColumn(name="operator_id"))
+    @ManyToMany(mappedBy = "roles")
+//    @JoinTable(name="operator_role", joinColumns=@JoinColumn(name="role_id"), inverseJoinColumns=@JoinColumn(name="operator_id"))
     private Collection<Operator> operators;
 
     public Role () {
@@ -52,6 +52,8 @@ public class Role {
                 '}';
     }
 
+
+
     @Override
     public boolean equals ( Object o ) {
         if ( this == o ) return true;
@@ -59,11 +61,14 @@ public class Role {
 
         Role role = (Role) o;
 
-        return roleName.equalsIgnoreCase ( role.roleName );
+        if ( roleID != role.roleID ) return false;
+        return roleName.equals ( role.roleName );
     }
 
     @Override
     public int hashCode () {
-        return roleName.hashCode ( );
+        int result = (int) ( roleID ^ ( roleID >>> 32 ) );
+        result = 31 * result + roleName.hashCode ( );
+        return result;
     }
 }
