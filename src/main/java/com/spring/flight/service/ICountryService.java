@@ -6,4 +6,7 @@ import java.util.Optional;
 
 public interface ICountryService {
     Optional<Country> getCountryById ( long id );
+    Optional<Country> getCountryByCountryName ( String countryName );
+
+    void add ( Country country );
 }

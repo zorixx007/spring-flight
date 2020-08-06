@@ -10,10 +10,14 @@ public class Country {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "country_id")
     private long countryID;
-    @Column(name = "country")
+    @Column(name = "country", unique = true)
     private String countryName;
 
     public Country () {
+    }
+
+    public Country ( String countryName ) {
+        this.countryName = countryName;
     }
 
     public long getCountryID () {
@@ -31,4 +35,6 @@ public class Country {
     public void setCountryName ( String countryName ) {
         this.countryName = countryName;
     }
+
+
 }
