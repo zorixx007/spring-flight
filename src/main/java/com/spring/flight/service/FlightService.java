@@ -21,7 +21,7 @@ public class FlightService implements IFlightService {
     }
 
     public Optional<Flight> getFlightByFlightId ( Flight id ) {
-        return iFlightRepository.findFlightByFlightId ( id.getId () );
+        return iFlightRepository.findFlightById ( id.getId () );
     }
 
 
